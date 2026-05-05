@@ -1,0 +1,245 @@
+---
+const cards = [
+  {
+    number: '01',
+    title: '緣起與宗旨',
+    detail: '美門社區關懷協會成立於新竹，致力於以基督信仰精神服務在地社區，提供全人關懷，讓每位居民都能感受到愛與支持。',
+  },
+  {
+    number: '02',
+    title: '服務理念',
+    detail: '我們相信每個生命都有其價值與尊嚴。透過專業服務與志工陪伴，我們致力於建立一個彼此扶持的社群。',
+  },
+  {
+    number: '03',
+    title: '服務對象',
+    detail: '服務對象涵蓋家庭、青少年、長者及有輔導需求的個人，以整全的方式回應各種生命需求。',
+  },
+  {
+    number: '04',
+    title: '未來展望',
+    detail: '持續深耕新竹社區，擴展培訓課程與線上資源，讓更多人能夠在生命各階段得到適切的支援與陪伴。',
+  },
+];
+---
+
+<section class="about-section" id="about">
+  <div class="wrap">
+    <div class="section-title-box">
+      <p class="section-en">ABOUT US</p>
+      <h2 class="section-zh">關於美門</h2>
+    </div>
+
+    <div class="about-layout">
+      <div class="about-cards about-cards-left">
+        {cards.slice(0, 2).map((card) => (
+          <div class="accordion-card" data-card>
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="card-number">{card.number}</span>
+              <span class="card-title">{card.title}</span>
+              <span class="card-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <p>{card.detail}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="about-tree" aria-hidden="true">
+        <svg class="tree-svg" viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Trunk -->
+          <rect class="tree-trunk" x="110" y="200" width="20" height="120" rx="10" fill="#604c44"/>
+          <!-- Main branch left -->
+          <line class="tree-branch" x1="120" y1="220" x2="60" y2="160" stroke="#604c44" stroke-width="8" stroke-linecap="round"/>
+          <!-- Main branch right -->
+          <line class="tree-branch" x1="120" y1="200" x2="180" y2="140" stroke="#604c44" stroke-width="8" stroke-linecap="round"/>
+          <!-- Sub branch left-up -->
+          <line class="tree-branch" x1="60" y1="160" x2="30" y2="110" stroke="#604c44" stroke-width="5" stroke-linecap="round"/>
+          <!-- Sub branch right-up -->
+          <line class="tree-branch" x1="180" y1="140" x2="210" y2="90" stroke="#604c44" stroke-width="5" stroke-linecap="round"/>
+          <!-- Leaves -->
+          <circle class="tree-leaf" cx="120" cy="80" r="36" fill="#e88766" opacity="0.8"/>
+          <circle class="tree-leaf" cx="50" cy="95" r="28" fill="#ffcc00" opacity="0.7"/>
+          <circle class="tree-leaf" cx="195" cy="70" r="30" fill="#ffd9cc" opacity="0.85"/>
+          <circle class="tree-leaf" cx="25" cy="60" r="20" fill="#e88766" opacity="0.5"/>
+          <circle class="tree-leaf" cx="215" cy="40" r="18" fill="#604c44" opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="about-cards about-cards-right">
+        {cards.slice(2, 4).map((card) => (
+          <div class="accordion-card" data-card>
+            <button class="accordion-trigger" aria-expanded="false">
+              <span class="card-number">{card.number}</span>
+              <span class="card-title">{card.title}</span>
+              <span class="card-arrow">▾</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <p>{card.detail}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    padding: 100px 0;
+    background: var(--color-bg);
+  }
+
+  /* Section title */
+  .section-title-box { text-align: center; margin-bottom: 60px; }
+  .section-en {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-zh {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-dark);
+  }
+
+  /* Layout */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 200px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  /* Accordion cards */
+  .about-cards { display: flex; flex-direction: column; gap: 16px; }
+  .accordion-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-box);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .accordion-card:hover { box-shadow: var(--shadow-card); }
+
+  .accordion-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+  .card-number {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+    min-width: 36px;
+  }
+  .card-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+  }
+  .card-arrow {
+    transition: transform 0.3s;
+    color: var(--color-text-light);
+  }
+  .accordion-trigger[aria-expanded="true"] .card-arrow { transform: rotate(180deg); }
+  .accordion-trigger[aria-expanded="true"] .card-number { color: var(--color-main); }
+
+  .accordion-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+  .accordion-body.open { grid-template-rows: 1fr; }
+  .accordion-inner {
+    overflow: hidden;
+    padding: 0 20px;
+  }
+  .accordion-inner p {
+    padding-bottom: 16px;
+    font-size: 0.9rem;
+    color: var(--color-text-body);
+    line-height: 1.8;
+  }
+
+  /* SVG tree */
+  .about-tree { display: flex; align-items: center; justify-content: center; }
+  .tree-svg { width: 100%; max-width: 200px; }
+  .tree-leaf { transform-origin: center; }
+
+  /* Animations are applied by JS (GSAP) */
+
+  @media (max-width: 991px) {
+    .about-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+    .about-tree { order: -1; }
+    .tree-svg { max-width: 140px; }
+  }
+</style>
+
+<script>
+  // Accordion logic
+  document.querySelectorAll<HTMLElement>('[data-card]').forEach((card) => {
+    const trigger = card.querySelector<HTMLButtonElement>('.accordion-trigger')!;
+    const body = card.querySelector<HTMLElement>('.accordion-body')!;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      document.querySelectorAll<HTMLElement>('[data-card]').forEach((c) => {
+        c.querySelector<HTMLButtonElement>('.accordion-trigger')!.setAttribute('aria-expanded', 'false');
+        c.querySelector<HTMLElement>('.accordion-body')!.classList.remove('open');
+      });
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        body.classList.add('open');
+      }
+    });
+  });
+
+  // GSAP ScrollTrigger tree animation
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const leaves = document.querySelectorAll<SVGCircleElement>('.tree-leaf');
+  const branches = document.querySelectorAll<SVGLineElement>('.tree-branch');
+  const trunk = document.querySelector<SVGRectElement>('.tree-trunk');
+
+  gsap.set(leaves, { scale: 0, transformOrigin: 'center' });
+  gsap.set(branches, { opacity: 0 });
+  if (trunk) gsap.set(trunk, { scaleY: 0, transformOrigin: 'bottom center' });
+
+  ScrollTrigger.create({
+    trigger: '#about',
+    start: 'top 70%',
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      if (trunk) tl.to(trunk, { scaleY: 1, duration: 0.6, ease: 'power2.out' });
+      tl.to(branches, { opacity: 1, duration: 0.5, stagger: 0.1 });
+      tl.to(leaves, { scale: 1, duration: 0.4, stagger: 0.04, ease: 'back.out(1.5)' });
+    },
+  });
+</script>

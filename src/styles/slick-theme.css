@@ -1,0 +1,100 @@
+/* Slick Carousel — minimal theme for MaiMem */
+
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.slick-list {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.slick-list:focus { outline: none; }
+.slick-list.dragging { cursor: grab; }
+
+.slick-track {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: stretch;
+}
+.slick-track::before,
+.slick-track::after { display: table; content: ''; }
+.slick-track::after { clear: both; }
+
+.slick-slide {
+  display: none;
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+.slick-initialized .slick-slide { display: block; }
+.slick-slide img { display: block; }
+
+/* Arrows — hide default Slick text ("Previous" / "Next") */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  background: var(--color-main);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+  /* hide the "Previous" / "Next" text Slick injects */
+  font-size: 0;
+  color: transparent;
+  line-height: 0;
+  overflow: hidden;
+}
+.slick-prev { left: -20px; }
+.slick-next { right: -20px; }
+.slick-prev:hover,
+.slick-next:hover { background: var(--color-accent); }
+.slick-prev::before,
+.slick-next::before { display: none; }
+.slick-prev svg,
+.slick-next svg { width: 18px; height: 18px; stroke: #fff; fill: none; }
+
+/* Dots */
+.slick-dots {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+.slick-dots li button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0;
+  transition: var(--transition-fast);
+}
+.slick-dots li.slick-active button { background: var(--color-accent); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slick-prev { left: 4px; }
+  .slick-next { right: 4px; }
+}

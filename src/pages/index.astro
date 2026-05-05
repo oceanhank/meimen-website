@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBanner from '../components/HeroBanner.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CourseSection from '../components/CourseSection.astro';
+import LinkSection from '../components/LinkSection.astro';
+import { getPostsByCategory, CATEGORY_IDS } from '../lib/wp-api';
+
+const courses = await getPostsByCategory(CATEGORY_IDS.COURSE, { per_page: 6, _embed: true });
+---
+
+<BaseLayout title="新竹美門社區關懷協會" description="服務新竹在地社區，提供輔導協談、培訓課程與社區關懷服務。">
+  <HeroBanner />
+  <AboutSection />
+  <CourseSection courses={courses} />
+  <LinkSection />
+</BaseLayout>

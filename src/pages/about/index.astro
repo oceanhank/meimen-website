@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPageBySlug } from '../../lib/wp-api';
+
+const page = await getPageBySlug('about');
+const title = page?.title.rendered ?? '關於我們';
+const content = page?.content.rendered ?? '';
+---
+
+<BaseLayout title={`${title} | 新竹美門社區關懷協會`}>
+  <div class="page-hero">
+    <div class="wrap">
+      <h1 class="page-hero-title" set:html={title} />
+    </div>
+  </div>
+
+  <div class="wrap page-content">
+    <nav class="about-tabs" aria-label="關於我們子分類">
+      <a href="#origin" class="tab-link">緣起與宗旨</a>
+      <a href="#org" class="tab-link">組織架構</a>
+      <a href="#history" class="tab-link">大事紀</a>
+    </nav>
+
+    <div class="wp-content" set:html={content} />
+  </div>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--color-bg-light);
+    padding: 120px 0 60px;
+    text-align: center;
+  }
+  .page-hero-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-text-dark);
+  }
+
+  .page-content { padding: 60px 0 100px; }
+
+  .about-tabs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 16px;
+  }
+  .tab-link {
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    background: var(--color-bg-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-body);
+    transition: var(--transition-fast);
+  }
+  .tab-link:hover {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .wp-content :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin: 40px 0 16px;
+  }
+  .wp-content :global(p) {
+    margin-bottom: 16px;
+    color: var(--color-text-body);
+    line-height: 1.85;
+  }
+  .wp-content :global(img) {
+    border-radius: var(--radius-box);
+    margin: 24px 0;
+  }
+</style>

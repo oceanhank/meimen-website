@@ -1,0 +1,145 @@
+---
+import type { WPPost } from '../lib/wp-api';
+
+interface Props {
+  courses: WPPost[];
+}
+
+const { courses } = Astro.props;
+
+function getExcerpt(html: string) {
+  return html.replace(/<[^>]+>/g, '').slice(0, 80).trim();
+}
+function getFeaturedImage(post: WPPost) {
+  return post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? '/images/placeholder.jpg';
+}
+function getFeaturedAlt(post: WPPost) {
+  return post._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? post.title.rendered;
+}
+---
+
+<section class="course-section" id="course">
+  <div class="wrap">
+    <div class="section-title-box">
+      <p class="section-en">COURSE</p>
+      <h2 class="section-zh">教牧輔導門訓</h2>
+    </div>
+
+    <div class="course-carousel" id="course-carousel">
+      {courses.map((post, i) => (
+        <a href={`/article/${post.slug}/`} class="course-card">
+          <div class="course-img-wrap">
+            <img
+              src={getFeaturedImage(post)}
+              alt={getFeaturedAlt(post)}
+              loading="lazy"
+            />
+          </div>
+          <div class="course-body">
+            <span class="course-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="course-title">{post.title.rendered}</h3>
+            <p class="course-excerpt">{getExcerpt(post.excerpt.rendered)}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .course-section {
+    padding: 100px 0;
+    background: var(--color-bg-light);
+  }
+
+  .section-title-box { text-align: center; margin-bottom: 48px; }
+  .section-en {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-zh {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-dark);
+  }
+
+  .course-card {
+    display: block;
+    margin: 0 12px;
+    text-decoration: none;
+    transition: var(--transition-fast);
+  }
+  .course-img-wrap {
+    overflow: hidden;
+    border-radius: var(--radius-box);
+    margin-bottom: 16px;
+  }
+  .course-img-wrap img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .course-card:hover .course-img-wrap img { transform: scale(1.05); }
+
+  .course-body { padding: 0 4px; }
+  .course-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-deco-pink);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .course-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 10px;
+    border-bottom: 2px dashed var(--color-border);
+    padding-bottom: 8px;
+    transition: color 0.3s, border-color 0.3s;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .course-card:hover .course-title {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+  .course-excerpt {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  import $ from 'jquery';
+  import 'slick-carousel';
+
+  $(document).ready(function () {
+    $('#course-carousel').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      arrows: true,
+      dots: true,
+      responsive: [
+        { breakpoint: 992, settings: { slidesToShow: 2 } },
+        { breakpoint: 768, settings: { slidesToShow: 1 } },
+      ],
+    });
+  });
+</script>

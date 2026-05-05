@@ -1,0 +1,120 @@
+---
+const linkCards = [
+  {
+    title: '文章專欄',
+    subtitle: 'Article Column',
+    href: '/article/',
+    image: '/images/link-article.jpg',
+  },
+  {
+    title: '線上課程',
+    subtitle: 'Graceful Vision',
+    href: '/course/',
+    image: '/images/link-course.jpg',
+  },
+  {
+    title: '資源出版',
+    subtitle: 'Resource Library',
+    href: '/resources/',
+    image: '/images/link-resource.jpg',
+  },
+];
+---
+
+<section class="link-section" id="links">
+  <div class="link-grid">
+    {linkCards.map((card) => (
+      <a href={card.href} class="link-card">
+        <div class="link-bg" style={`background-image: url('${card.image}')`}></div>
+        <div class="link-overlay"></div>
+        <div class="link-content">
+          <h3 class="link-title">{card.title}</h3>
+          <p class="link-subtitle">{card.subtitle}</p>
+          <span class="link-btn" aria-hidden="true">→</span>
+        </div>
+        <svg class="link-curve" viewBox="0 0 400 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0 60 Q200 0 400 60 L400 60 L0 60 Z" fill="rgba(96,76,68,0.75)"/>
+        </svg>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .link-section { overflow: hidden; }
+
+  .link-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .link-card {
+    position: relative;
+    display: block;
+    height: 480px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .link-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  .link-card:hover .link-bg { transform: scale(1.05); }
+
+  .link-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(96,76,68,0.65) 0%, transparent 60%);
+  }
+
+  .link-content {
+    position: absolute;
+    bottom: 48px;
+    left: 32px;
+    right: 32px;
+    z-index: 2;
+    color: #fff;
+  }
+  .link-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .link-subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+  .link-card:hover .link-btn { transform: translateX(6px); }
+
+  .link-curve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .link-grid { grid-template-columns: 1fr; }
+    .link-card { height: 280px; }
+  }
+</style>

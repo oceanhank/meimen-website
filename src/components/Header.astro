@@ -1,0 +1,203 @@
+---
+const navItems = [
+  {
+    label: '關於我們',
+    children: [
+      { label: '緣起與宗旨', href: '/about/#origin' },
+      { label: '組織架構', href: '/about/#org' },
+      { label: '大事紀', href: '/about/#history' },
+    ],
+  },
+  {
+    label: '服務訊息',
+    children: [
+      { label: '社區服務', href: '/news/?cat=community' },
+      { label: '輔導協談', href: '/news/?cat=counseling' },
+      { label: '培訓課程', href: '/news/?cat=training' },
+    ],
+  },
+  {
+    label: '文章專欄',
+    children: [
+      { label: '活動花絮', href: '/article/?cat=activity' },
+      { label: '生命分享', href: '/article/?cat=life' },
+      { label: '資訊公告', href: '/article/?cat=announcement' },
+    ],
+  },
+  { label: '線上課程', href: '/course/' },
+  { label: '聯絡我們', href: '/contact/' },
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="header-logo" aria-label="新竹美門社區關懷協會 首頁">
+      <img src="/logo.svg" alt="美門 LOGO" width="120" height="48" />
+    </a>
+
+    <nav class="main-nav" aria-label="主要導覽">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li class={`nav-item${item.children ? ' has-dropdown' : ''}`}>
+            {item.href ? (
+              <a href={item.href} class="nav-link">{item.label}</a>
+            ) : (
+              <span class="nav-link nav-trigger" tabindex="0">{item.label}</span>
+            )}
+            {item.children && (
+              <ul class="dropdown">
+                {item.children.map((child) => (
+                  <li><a href={child.href}>{child.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="https://www.facebook.com/nghcc" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
+      <a href="https://www.youtube.com/@nghcc" class="social-icon" aria-label="YouTube" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+          <polygon fill="#fff" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+        </svg>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="開啟選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: transparent;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .site-header.scrolled {
+    background: #fff;
+    box-shadow: var(--shadow-header);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 72px;
+  }
+  .header-logo img { height: 48px; width: auto; }
+
+  /* Nav */
+  .main-nav { flex: 1; }
+  .nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-item { position: relative; }
+  .nav-link {
+    display: block;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--color-accent); }
+
+  /* Dropdown */
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 140px;
+    background: #fff;
+    border-radius: var(--radius-box);
+    box-shadow: var(--shadow-card);
+    list-style: none;
+    padding: 8px 0;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .dropdown a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    color: var(--color-text-body);
+    transition: color 0.2s, background 0.2s;
+  }
+  .dropdown a:hover {
+    color: var(--color-accent);
+    background: var(--color-bg-light);
+  }
+
+  /* Social icons */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .social-icon {
+    color: var(--color-main);
+    transition: color 0.2s;
+  }
+  .social-icon:hover { color: var(--color-accent); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-main);
+    border-radius: 2px;
+    transition: var(--transition-fast);
+  }
+
+  @media (max-width: 991px) {
+    .main-nav { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+</script>

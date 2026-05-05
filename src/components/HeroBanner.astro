@@ -1,0 +1,306 @@
+---
+const slides = [
+  {
+    title: '以愛相待，守護美門',
+    body: '新竹美門社區關懷協會，陪伴每一個需要被看見的生命。',
+    image: '/images/hero-1.jpg',
+    alt: '社區關懷服務',
+    bg: 'linear-gradient(135deg, #e8c5b0 0%, #f2ddd2 60%, #ffe8dc 100%)',
+  },
+  {
+    title: '培訓課程，裝備生命',
+    body: '透過專業的培訓與輔導，讓您在生命的旅程中更加豐盛。',
+    image: '/images/hero-2.jpg',
+    alt: '培訓課程活動',
+    bg: 'linear-gradient(135deg, #d4b8a8 0%, #e8d0c0 60%, #f5e4d8 100%)',
+  },
+  {
+    title: '輔導協談，同行支持',
+    body: '專業諮商師陪伴，讓每個困境都有出路。',
+    image: '/images/hero-3.jpg',
+    alt: '輔導協談服務',
+    bg: 'linear-gradient(135deg, #c8a898 0%, #ddc0b0 60%, #eedad0 100%)',
+  },
+];
+
+const prevArrow = `<button type="button" class="slick-prev hero-arrow" aria-label="上一張">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+</button>`;
+const nextArrow = `<button type="button" class="slick-next hero-arrow" aria-label="下一張">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+</button>`;
+---
+
+<section class="hero-banner" aria-label="首頁 Hero">
+  <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <!-- Left: text carousel -->
+    <div class="hero-text-track" id="hero-text">
+      {slides.map((slide) => (
+        <div class="hero-slide-text">
+          <p class="hero-label">美門 · 關懷 · 陪伴</p>
+          <h1 class="hero-title">{slide.title}</h1>
+          <p class="hero-body">{slide.body}</p>
+          <a href="/about/" class="hero-cta">了解更多</a>
+        </div>
+      ))}
+    </div>
+
+    <!-- Right: image carousel -->
+    <div class="hero-image-wrap">
+      <div class="hero-image-track" id="hero-image">
+        {slides.map((slide) => (
+          <div class="hero-slide-img">
+            <div
+              class="slide-bg"
+              style={`background-image: url('${slide.image}'); background: ${slide.bg};`}
+              role="img"
+              aria-label={slide.alt}
+            >
+              <img
+                src={slide.image}
+                alt={slide.alt}
+                loading="eager"
+                onerror="this.style.display='none'"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-banner {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background: var(--color-bg-light);
+    display: flex;
+    align-items: center;
+  }
+
+  /* Blobs behind everything */
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-blob-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--color-deco-pink);
+    opacity: 0.35;
+    top: -140px;
+    left: -160px;
+    animation: lavaBlobSoft 10s ease-in-out infinite;
+  }
+  .hero-blob-2 {
+    width: 280px;
+    height: 280px;
+    background: var(--color-deco-yellow);
+    opacity: 0.22;
+    bottom: 60px;
+    right: 80px;
+    animation: lavaBlobSoft 14s ease-in-out infinite reverse;
+  }
+
+  /* Grid layout */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 60px);
+    align-items: center;
+    gap: 60px;
+  }
+
+  /* ── Text track ── */
+  .hero-text-track { min-width: 0; }
+  .hero-text-track .slick-list { overflow: visible; }
+
+  .hero-slide-text { outline: none; padding: 8px 0; }
+  .hero-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero-body {
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    color: var(--color-text-body);
+    line-height: 1.85;
+    max-width: 420px;
+    margin-bottom: 32px;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 36px;
+    background: var(--color-main);
+    color: #fff;
+    border-radius: var(--radius-pill);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .hero-cta:hover { background: var(--color-accent); }
+
+  /* Slick dots (inside text carousel) */
+  .hero-text-track .slick-dots {
+    position: static;
+    margin-top: 28px;
+    justify-content: flex-start;
+  }
+
+  /* ── Image track ── */
+  .hero-image-wrap {
+    min-width: 0;
+    position: relative;
+  }
+
+  .hero-image-track { min-width: 0; }
+  .hero-image-track .slick-list { overflow: hidden; border-radius: 32px; }
+
+  .hero-slide-img { outline: none; }
+
+  .slide-bg {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 32px;
+    background-size: cover !important;
+    background-position: center !important;
+    overflow: hidden;
+  }
+  .slide-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Arrow buttons ── */
+  :global(.hero-arrow) {
+    position: absolute;
+    bottom: -20px;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(96, 76, 68, 0.18);
+    transition: background 0.2s, transform 0.2s;
+    color: var(--color-main);
+  }
+  :global(.hero-arrow:hover) {
+    background: var(--color-accent);
+    color: #fff;
+    transform: scale(1.08);
+  }
+  :global(.hero-arrow svg) { width: 20px; height: 20px; }
+  :global(.slick-prev.hero-arrow) { right: 64px; left: auto; }
+  :global(.slick-next.hero-arrow) { right: 8px; }
+
+  @media (max-width: 991px) {
+    .hero-banner { height: auto; padding: 100px 0 60px; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .hero-image-wrap { order: -1; }
+    .slide-bg { height: 300px; }
+    .hero-text-track .slick-dots { justify-content: center; }
+    :global(.slick-prev.hero-arrow) { left: 8px; right: auto; }
+    :global(.slick-next.hero-arrow) { right: 8px; }
+  }
+</style>
+
+<script>
+  import $ from 'jquery';
+  import 'slick-carousel';
+
+  const prevArrow = `<button type="button" class="slick-prev hero-arrow" aria-label="上一張">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>`;
+  const nextArrow = `<button type="button" class="slick-next hero-arrow" aria-label="下一張">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>`;
+
+  $(document).ready(function () {
+    const $text = $('#hero-text');
+    const $image = $('#hero-image');
+    let syncing = false;
+
+    $text.slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: false,
+      arrows: false,
+      dots: true,
+      speed: 600,
+      fade: true,
+      cssEase: 'ease-in-out',
+    });
+
+    $image.slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      arrows: true,
+      prevArrow,
+      nextArrow,
+      dots: false,
+      speed: 700,
+      fade: true,
+      cssEase: 'ease-in-out',
+    });
+
+    // Sync: image drives text
+    $image.on('beforeChange', (_e: unknown, _s: unknown, _curr: unknown, next: number) => {
+      if (syncing) return;
+      syncing = true;
+      $text.slick('slickGoTo', next as number);
+      syncing = false;
+    });
+
+    // Slide-up entrance animation on text
+    function animateSlide(index: number) {
+      const $slide = $text.find('.slick-slide').eq(index).find('.hero-slide-text');
+      $slide.css({ opacity: 0, transform: 'translateY(30px)' });
+      setTimeout(() => {
+        $slide.css({ transition: 'opacity 0.7s ease, transform 0.7s ease', opacity: 1, transform: 'translateY(0)' });
+      }, 50);
+    }
+
+    animateSlide(0);
+    $text.on('afterChange', (_e: unknown, _s: unknown, current: number) => animateSlide(current as number));
+  });
+</script>
